@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  beach-collector:
+    build: .
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+    environment:
+      - ENV=production
+    restart: unless-stopped

@@ -1,0 +1,16 @@
+firebase:
+  credentials_path: "config/firebase_cred.json"
+  database_url: "${FIREBASE_URL}"
+
+collection:
+  regions:
+    - name: "Europe-Mediterranean"
+      south: 35.0
+      north: 45.0
+      west: -5.0
+      east: 35.0
+    # Add more regions as needed
+
+processing:
+  batch_size: 500
+  rate_limit: 60
