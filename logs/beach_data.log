@@ -1,0 +1,17 @@
+2024-12-18 19:35:28,725 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-18 19:35:28,726 - __main__ - INFO - Starting full update for 3 regions
+2024-12-18 19:35:28,726 - __main__ - INFO - Processing region 1/3
+2024-12-18 19:35:28,726 - __main__ - INFO - Starting processing for region: Western Australia
+2024-12-18 19:35:28,726 - collectors.osm_collector - INFO - Starting collection for region: Western Australia
+2024-12-18 19:36:48,348 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-18 19:36:48,348 - __main__ - INFO - Starting full update for 3 regions
+2024-12-18 19:36:48,348 - __main__ - INFO - Processing region 1/3
+2024-12-18 19:36:48,348 - __main__ - INFO - Starting processing for region: Western Australia
+2024-12-18 19:36:48,348 - collectors.osm_collector - INFO - Starting collection for region: Western Australia
+2024-12-18 19:38:09,510 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)")': /reverse?lat=-33.8631796&lon=121.8946866&format=json&addressdetails=1
+2024-12-18 19:48:51,948 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-18 19:48:51,948 - __main__ - INFO - Starting full update for 3 regions
+2024-12-18 19:48:51,948 - __main__ - INFO - Processing region 1/3
+2024-12-18 19:48:51,948 - __main__ - INFO - Starting processing for region: Western Australia
+2024-12-18 19:48:51,948 - collectors.osm_collector - INFO - Starting collection for region: Western Australia
+2024-12-18 19:51:56,818 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)")': /reverse?lat=-33.8953429&lon=122.888571&format=json&addressdetails=1

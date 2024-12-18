@@ -9,7 +9,7 @@ from collectors.base_collector import BeachData
 class FirebaseManager:
     def __init__(self, cred_path: str):
         """
-        Initialize Firebase connection
+        Initialize Firestore connection
         
         Args:
             cred_path: Path to Firebase credentials JSON
@@ -19,16 +19,16 @@ class FirebaseManager:
         self.batch_size = 500  # Optimize batch size for Firestore limits
 
     def _initialize_firebase(self, cred_path: str) -> None:
-        """Initialize Firebase connection with credentials"""
+        """Initialize Firestore connection with credentials"""
         try:
             if not firebase_admin._apps:
                 cred = credentials.Certificate(cred_path)
                 firebase_admin.initialize_app(cred)
             self.db = firestore.client()
-            self.beaches_collection = self.db.collection('beaches')
-            self.logger.info("Firebase connection initialized successfully")
+            self.beaches_ref = self.db.collection('beachesdata')  # Changed collection name
+            self.logger.info("Firestore connection initialized successfully")
         except Exception as e:
-            self.logger.error(f"Firebase initialization failed: {str(e)}")
+            self.logger.error(f"Firestore initialization failed: {str(e)}")
             raise
 
     def format_beach_data(self, beach: BeachData) -> Dict[str, Any]:
@@ -43,14 +43,14 @@ class FirebaseManager:
             'location': {
                 'latitude': beach.latitude,
                 'longitude': beach.longitude,
-                'geohash': self._calculate_geohash(beach.latitude, beach.longitude)
+                'geopoint': firestore.GeoPoint(beach.latitude, beach.longitude)
             },
             'details': {
                 'description': beach.description,
                 'amenities': beach.amenities
             },
             'metadata': {
-                'last_updated': beach.last_updated,  # Firestore handles datetime objects directly
+                'last_updated': beach.last_updated,
                 'data_source': beach.data_source
             }
         }
@@ -63,31 +63,26 @@ class FirebaseManager:
             beaches: List of BeachData objects to upload
         """
         try:
-            for i in range(0, len(beaches), self.batch_size):
-                batch = self.db.batch()
-                current_beaches = beaches[i:i + self.batch_size]
+            batch = self.db.batch()
+            count = 0
+            
+            for beach in beaches:
+                beach_data = self.format_beach_data(beach)
+                beach_ref = self.beaches_ref.document(beach.id)
+                batch.set(beach_ref, beach_data, merge=True)
+                count += 1
                 
-                for beach in current_beaches:
-                    beach_data = self.format_beach_data(beach)
-                    beach_ref = self.beaches_collection.document(beach.id)
-                    batch.set(beach_ref, beach_data, merge=True)
-                    
-                    # Update indices using subcollections
-                    if beach.country:
-                        country_ref = self.db.collection('indices').document('by_country')
-                        batch.set(country_ref, {
-                            beach.country: firestore.ArrayUnion([beach.id])
-                        }, merge=True)
-                    
-                    if beach.rating:
-                        rating_ref = self.db.collection('indices').document('by_rating')
-                        batch.set(rating_ref, {
-                            str(int(beach.rating)): firestore.ArrayUnion([beach.id])
-                        }, merge=True)
-                
+                # Commit when batch size is reached
+                if count % self.batch_size == 0:
+                    batch.commit()
+                    self.logger.info(f"Uploaded batch of {self.batch_size} beaches to beachesdata")
+                    batch = self.db.batch()
+            
+            # Commit any remaining documents
+            if count % self.batch_size != 0:
                 batch.commit()
-                self.logger.info(f"Uploaded batch of {len(current_beaches)} beaches")
-                
+                self.logger.info(f"Uploaded final batch of {count % self.batch_size} beaches to beachesdata")
+            
             # Update metadata
             self._update_metadata(len(beaches))
             
@@ -98,18 +93,17 @@ class FirebaseManager:
     def _update_metadata(self, count: int) -> None:
         """Update database metadata"""
         try:
-            metadata_ref = self.db.collection('metadata').document('beaches')
+            metadata_ref = self.db.collection('metadata').document('beachesdata')  # Changed metadata document name
             metadata_ref.set({
-                'last_updated': datetime.now(),
-                'total_count': firestore.Increment(count)
+                'last_updated': firestore.SERVER_TIMESTAMP,
+                'total_count': count
             }, merge=True)
         except Exception as e:
-            self.logger.error(f"Metadata update failed: {str(e)}")
-            raise
+            self.logger.error(f"Failed to update metadata: {str(e)}")
 
     def query_beaches_by_location(self, lat: float, lon: float, radius_km: float) -> List[Dict]:
         """
-        Query beaches within radius of coordinates using Firestore geoqueries
+        Query beaches within radius of coordinates using Firestore
         
         Args:
             lat: Latitude of center point
@@ -117,41 +111,51 @@ class FirebaseManager:
             radius_km: Search radius in kilometers
         """
         try:
-            # Calculate geohash range for the area
-            geohash_prefix = self._calculate_geohash(lat, lon)[:5]
+            # Convert radius to lat/lon bounds (approximate)
+            # 1 degree of latitude = 111.32 km
+            # 1 degree of longitude = 111.32 * cos(latitude) km
+            lat_radius = radius_km / 111.32
+            lon_radius = radius_km / (111.32 * cos(abs(lat) * 3.14159 / 180))
             
-            # Query using compound queries
+            # Query within bounding box
+            results = (self.beaches_ref
+                .where('location.latitude', '>=', lat - lat_radius)
+                .where('location.latitude', '<=', lat + lat_radius)
+                .get())
+            
             beaches = []
-            query = (self.beaches_collection
-                    .where('location.geohash', '>=', geohash_prefix)
-                    .where('location.geohash', '<=', geohash_prefix + '\uf8ff')
-                    .get())
-            
-            for doc in query:
+            for doc in results:
                 beach_data = doc.to_dict()
-                if self._is_within_radius(
-                    lat, lon,
-                    beach_data['location']['latitude'],
-                    beach_data['location']['longitude'],
-                    radius_km
-                ):
-                    beaches.append({
-                        'id': doc.id,
-                        **beach_data
-                    })
+                beach_lat = beach_data['location']['latitude']
+                beach_lon = beach_data['location']['longitude']
+                
+                # Calculate actual distance
+                distance = self._calculate_distance(lat, lon, beach_lat, beach_lon)
+                if distance <= radius_km:
+                    beach_data['distance'] = round(distance, 2)
+                    beach_data['id'] = doc.id
+                    beaches.append(beach_data)
             
-            return beaches
+            return sorted(beaches, key=lambda x: x['distance'])
             
         except Exception as e:
             self.logger.error(f"Location query failed: {str(e)}")
             raise
 
-    def update_beach(self, beach_id: str, updates: Dict[str, Any]) -> None:
-        """Update specific beach data"""
-        try:
-            beach_ref = self.beaches_collection.document(beach_id)
-            beach_ref.update(updates)
-            self.logger.info(f"Updated beach {beach_id}")
-        except Exception as e:
-            self.logger.error(f"Beach update failed: {str(e)}")
-            raise
+    def _calculate_distance(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+        """
+        Calculate distance between two points using Haversine formula
+        """
+        from math import radians, sin, cos, sqrt, atan2
+        
+        R = 6371  # Earth's radius in kilometers
+        
+        lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+        
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1-a))
+        
+        return R * c

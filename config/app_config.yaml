@@ -4,13 +4,80 @@ firebase:
 
 collection:
   regions:
-    - name: "Europe-Mediterranean"
+    # Europe
+    - name: "Mediterranean Europe"
       south: 35.0
       north: 45.0
       west: -5.0
       east: 35.0
-    # Add more regions as needed
+    
+    - name: "Northern Europe"
+      south: 45.0
+      north: 60.0
+      west: -10.0
+      east: 30.0
+    
+    # North America
+    - name: "US East Coast"
+      south: 25.0
+      north: 45.0
+      west: -80.0
+      east: -70.0
+    
+    - name: "US West Coast"
+      south: 32.0
+      north: 49.0
+      west: -125.0
+      east: -115.0
+    
+    - name: "Caribbean"
+      south: 10.0
+      north: 25.0
+      west: -85.0
+      east: -60.0
+
+    # Asia
+    - name: "Southeast Asia"
+      south: -10.0
+      north: 20.0
+      west: 95.0
+      east: 140.0
+    
+    - name: "South Asia"
+      south: 5.0
+      north: 35.0
+      west: 65.0
+      east: 95.0
+
+    # Australia & Pacific
+    - name: "Eastern Australia"
+      south: -35.0
+      north: -10.0
+      west: 145.0
+      east: 155.0
+    
+    - name: "Western Australia"
+      south: -35.0
+      north: -10.0
+      west: 110.0
+      east: 125.0
+
+    # Africa
+    - name: "South Africa"
+      south: -35.0
+      north: -22.0
+      west: 16.0
+      east: 33.0
+    
+    - name: "North Africa"
+      south: 25.0
+      north: 37.0
+      west: -5.0
+      east: 35.0
 
 processing:
   batch_size: 500
   rate_limit: 60
+  enrichment:
+    nominatim_delay: 1.0  # Delay between Nominatim requests
+    weather_delay: 1.0    # Delay between weather API requests
