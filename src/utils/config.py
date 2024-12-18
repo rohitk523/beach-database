@@ -22,8 +22,7 @@ class ConfigManager:
     def get_firebase_config(self) -> Dict[str, str]:
         """Get Firebase configuration"""
         return {
-            'credentials_path': self.config['firebase']['credentials_path'],
-            'database_url': self.config['firebase']['database_url']
+            'credentials_path': self.config['firebase']['credentials_path']
         }
 
     def get_collector_config(self) -> Dict[str, Any]:

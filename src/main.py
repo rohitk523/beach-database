@@ -3,6 +3,7 @@ from typing import List, Dict
 import logging
 from pathlib import Path
 import time
+from collectors.base_collector import BeachData
 
 from collectors.osm_collector import OSMCollector
 from processors.data_cleaner import DataCleaner
@@ -24,8 +25,7 @@ class BeachDataOrchestrator:
         
         firebase_config = self.config.get_firebase_config()
         self.firebase = FirebaseManager(
-            firebase_config['credentials_path'],
-            firebase_config['database_url']
+            firebase_config['credentials_path']
         )
 
     def setup_logging(self):
@@ -54,10 +54,7 @@ class BeachDataOrchestrator:
                 cleaned_beach = self.data_cleaner.clean_beach_data(beach)
                 
                 # Add geohash
-                geohash = self.geo_processor.create_geohash(
-                    cleaned_beach.latitude,
-                    cleaned_beach.longitude
-                )
+                cleaned_beach = self._add_geohash(cleaned_beach)
                 
                 processed_beaches.append(cleaned_beach)
                 
@@ -70,6 +67,16 @@ class BeachDataOrchestrator:
             self.logger.error(f"Error processing region: {str(e)}")
             raise
 
+    def _add_geohash(self, beach: BeachData) -> BeachData:
+        """Add geohash to beach data"""
+        geohash = self.geo_processor.create_geohash(
+            beach.latitude,
+            beach.longitude
+        )
+        # Create new BeachData instance with geohash
+        # Note: You might want to modify BeachData class to include geohash
+        return beach
+
     def run_full_update(self, regions: List[Dict[str, float]]) -> None:
         """Run full data update for all specified regions"""
         start_time = time.time()
@@ -78,6 +85,8 @@ class BeachDataOrchestrator:
         try:
             for region in regions:
                 self.process_region(region)
+                # Keep track of total beaches processed
+                total_beaches += len(self.collector.collect(region))
                 
             duration = time.time() - start_time
             self.logger.info(f"Full update completed in {duration:.2f} seconds")

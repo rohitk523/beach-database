@@ -1,6 +1,6 @@
+# config/app_config.yaml
 firebase:
   credentials_path: "config/firebase_cred.json"
-  database_url: "${FIREBASE_URL}"
 
 collection:
   regions:
