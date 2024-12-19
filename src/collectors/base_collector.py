@@ -1,6 +1,5 @@
-# src/collectors/base_collector.py
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Union, Generator, Iterator
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -22,8 +21,14 @@ class BaseCollector(ABC):
     """Abstract base class for all data collectors"""
     
     @abstractmethod
-    def collect(self, region: Dict[str, float]) -> List[BeachData]:
-        """Collect beach data for a given region"""
+    def collect(self, region: Dict[str, float]) -> Union[List[BeachData], Generator[List[BeachData], None, None]]:
+        """
+        Collect beach data for a given region
+        
+        Returns either:
+        - A list of BeachData for single region collection
+        - A generator yielding lists of BeachData for split region collection
+        """
         pass
 
     @abstractmethod

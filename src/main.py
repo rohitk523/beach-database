@@ -56,53 +56,59 @@ class BeachDataOrchestrator:
             
             # Collect data
             start_time = time.time()
-            beaches = self.collector.collect(region)
-            collection_time = time.time() - start_time
-            self.logger.info(f"Collected {len(beaches)} beaches in {collection_time:.2f} seconds")
+            total_processed = 0
             
-            if not beaches:
-                self.logger.warning(f"No beaches found in region {region_name}")
-                return 0
+            # Process data in chunks from collector
+            beaches_iterator = self.collector.collect(region)
             
-            # Process each beach
-            processed_beaches = []
-            processed_count = 0
-            
-            for beach in beaches:
+            # If it's a regular list (non-split region), wrap it in a list
+            if isinstance(beaches_iterator, list):
+                beaches_iterator = [beaches_iterator]
+                
+            for beaches_chunk in beaches_iterator:
                 try:
-                    # Clean data
-                    cleaned_beach = self.data_cleaner.clean_beach_data(beach)
+                    if not beaches_chunk:
+                        continue
                     
-                    # Add geohash for spatial queries
-                    cleaned_beach = self._add_geohash(cleaned_beach)
+                    # Process each beach in the chunk
+                    processed_beaches = []
                     
-                    # Add to batch
-                    processed_beaches.append(cleaned_beach)
-                    processed_count += 1
+                    for beach in beaches_chunk:
+                        try:
+                            # Clean data
+                            cleaned_beach = self.data_cleaner.clean_beach_data(beach)
+                            
+                            # Add geohash for spatial queries
+                            cleaned_beach = self._add_geohash(cleaned_beach)
+                            
+                            # Add to current chunk's batch
+                            processed_beaches.append(cleaned_beach)
+                            total_processed += 1
+                            
+                        except Exception as e:
+                            self.logger.error(f"Error processing beach {beach.id}: {str(e)}")
+                            continue
                     
-                    # Upload in batches of 500
-                    if len(processed_beaches) >= 500:
-                        self.firebase.batch_upload(processed_beaches)
-                        self.logger.info(f"Uploaded batch of {len(processed_beaches)} beaches")
-                        processed_beaches = []
-                        
+                    # Upload this chunk's beaches immediately
+                    if processed_beaches:
+                        try:
+                            self.firebase.batch_upload(processed_beaches)
+                            self.logger.info(f"Uploaded batch of {len(processed_beaches)} beaches from sub-region")
+                        except Exception as e:
+                            self.logger.error(f"Failed to upload batch from sub-region: {str(e)}")
+                    
                 except Exception as e:
-                    self.logger.error(f"Error processing beach {beach.id}: {str(e)}")
+                    self.logger.error(f"Error processing chunk: {str(e)}")
                     continue
-            
-            # Upload any remaining beaches
-            if processed_beaches:
-                self.firebase.batch_upload(processed_beaches)
-                self.logger.info(f"Uploaded final batch of {len(processed_beaches)} beaches")
             
             total_time = time.time() - start_time
             self.logger.info(
                 f"Region {region_name} complete: "
-                f"Processed {processed_count} beaches in {total_time:.2f} seconds"
+                f"Processed {total_processed} beaches in {total_time:.2f} seconds"
             )
             
-            return processed_count
-            
+            return total_processed
+                
         except Exception as e:
             self.logger.error(f"Error processing region {region.get('name', 'unnamed')}: {str(e)}")
             raise
@@ -162,28 +168,154 @@ if __name__ == "__main__":
     
     # Define regions to process
     regions = [
-        {
-            'name': "Western Australia",
-            'south': -35.0,
-            'north': -13.0,
-            'west': 112.0,
-            'east': 129.0
-        },
-        {
-            'name': "Eastern Australia",
-            'south': -39.0,
-            'north': -10.0,
-            'west': 140.0,
-            'east': 154.0
-        },
-        {
-            'name': "Mediterranean Coast",
-            'south': 30.0,
-            'north': 45.0,
-            'west': -6.0,
-            'east': 36.0
-        }
-        # Add more regions as needed
-    ]
+    {
+        'name': "Mediterranean Coast",
+        'south': 30.0,
+        'north': 45.0,
+        'west': -6.0,
+        'east': 36.0
+    },
+    {
+        'name': "California Coast",
+        'south': 32.5,
+        'north': 42.0,
+        'west': -125.0,
+        'east': -114.0
+    },
+    {
+        'name': "Caribbean Sea",
+        'south': 10.0,
+        'north': 20.0,
+        'west': -85.0,
+        'east': -60.0
+    },
+    {
+        'name': "Florida Coast",
+        'south': 24.0,
+        'north': 31.0,
+        'west': -87.0,
+        'east': -80.0
+    },
+    {
+        'name': "Hawaii",
+        'south': 18.5,
+        'north': 20.5,
+        'west': -156.5,
+        'east': -154.5
+    },
+    {
+        'name': "Western Australia",
+        'south': -35.0,
+        'north': -13.0,
+        'west': 112.0,
+        'east': 129.0
+    },
+    {
+        'name': "Eastern Australia",
+        'south': -39.0,
+        'north': -10.0,
+        'west': 140.0,
+        'east': 154.0
+    },
+    {
+        'name': "South Africa",
+        'south': -34.0,
+        'north': -22.0,
+        'west': 16.5,
+        'east': 34.5
+    },
+    {
+        'name': "Mediterranean Coast",
+        'south': 30.0,
+        'north': 45.0,
+        'west': -6.0,
+        'east': 36.0
+    },
+    {
+        'name': "Gulf of Thailand",
+        'south': 6.0,
+        'north': 13.0,
+        'west': 99.0,
+        'east': 106.0
+    },
+    {
+        'name': "Indochina Peninsula",
+        'south': 6.0,
+        'north': 23.0,
+        'west': 97.0,
+        'east': 110.0
+    },
+    {
+        'name': "Bali",
+        'south': -9.5,
+        'north': -8.0,
+        'west': 114.0,
+        'east': 116.5
+    },
+    {
+        'name': "South East Asia",
+        'south': -10.0,
+        'north': 25.0,
+        'west': 95.0,
+        'east': 140.0
+    },
+    {
+        'name': "East Coast of India",
+        'south': 8.0,
+        'north': 22.0,
+        'west': 80.0,
+        'east': 92.0
+    },
+    {
+        'name': "East Coast of Africa",
+        'south': -35.0,
+        'north': 5.0,
+        'west': 30.0,
+        'east': 60.0
+    },
+    {
+        'name': "Brazilian Coast",
+        'south': -33.0,
+        'north': 5.0,
+        'west': -75.0,
+        'east': -34.0
+    },
+    {
+        'name': "Pacific Northwest Coast (USA/Canada)",
+        'south': 42.0,
+        'north': 60.0,
+        'west': -125.0,
+        'east': -114.0
+    },
+    {
+        'name': "Indian Ocean Islands",
+        'south': -26.0,
+        'north': -2.0,
+        'west': 40.0,
+        'east': 100.0
+    },
+    {
+        'name': "Arabian Gulf Coast",
+        'south': 24.0,
+        'north': 30.0,
+        'west': 48.0,
+        'east': 56.0
+    },
+    {
+        'name': "New Zealand",
+        'south': -47.0,
+        'north': -34.0,
+        'west': 166.0,
+        'east': 179.0
+    },
+    {
+        'name': "French Polynesia",
+        'south': -23.0,
+        'north': -15.0,
+        'west': -150.0,
+        'east': -130.0
+    }
+]
+
     
     orchestrator.run_full_update(regions)

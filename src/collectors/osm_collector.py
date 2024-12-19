@@ -125,14 +125,14 @@ class OSMCollector(BaseCollector):
             try:
                 time.sleep(self.query_delay)
                 beaches = self._collect_with_retry(subregion)
-                all_beaches.extend(beaches)
+                if beaches:
+                    # Return beaches from this sub-region immediately
+                    yield beaches  # Changed to yield instead of extend
                 time.sleep(self.split_delay)
                 
             except Exception as e:
                 self.logger.error(f"Error in subregion {subregion.get('name', 'unnamed')}: {str(e)}")
                 continue
-                
-        return all_beaches
 
     def _calculate_optimal_splits(self, region: Dict[str, float]) -> List[Dict[str, float]]:
         """Calculate optimal way to split region based on area"""
