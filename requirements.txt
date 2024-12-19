@@ -3,3 +3,6 @@ overpy>=0.6
 geopy>=2.3.0
 PyYAML>=6.0
 requests>=2.28.0
+overpy>=0.6
+tenacity>=8.0.0
+geopy>=2.3.0
