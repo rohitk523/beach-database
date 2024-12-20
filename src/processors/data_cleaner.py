@@ -24,6 +24,7 @@ class DataCleaner:
                 country=self._clean_country(beach.country),
                 region=self._clean_region(beach.region),
                 amenities=self._clean_amenities(beach.amenities),
+                image_url=self._clean_image_url(beach.image_url),
                 last_updated=datetime.now(),
                 data_source=beach.data_source
             )
@@ -87,7 +88,6 @@ class DataCleaner:
             return None
             
         country = country.strip().upper()
-        # Add country name standardization logic here
         return country
 
     def _clean_region(self, region: Optional[str]) -> Optional[str]:
@@ -113,4 +113,8 @@ class DataCleaner:
                 
         return sorted(cleaned)
 
-
+    def _clean_image_url(self, image_url: str) -> str:
+        """Clean and validate image URL"""
+        if not image_url:
+            return ""
+        return image_url.strip()

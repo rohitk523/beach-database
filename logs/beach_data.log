@@ -19,3 +19,164 @@
 2024-12-19 20:03:19,586 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-3: Collected 23 valid beaches, Skipped 41 invalid entries
 2024-12-19 20:03:21,962 - database.firebase_manager - INFO - Uploaded final batch of 23 beaches to beachesdata
 2024-12-19 20:03:22,092 - __main__ - INFO - Uploaded batch of 23 beaches from sub-region
+2024-12-20 10:59:03,244 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-20 10:59:03,244 - __main__ - INFO - Starting full update for 21 regions
+2024-12-20 10:59:03,244 - __main__ - INFO - Processing region 1/21
+2024-12-20 10:59:03,244 - __main__ - INFO - Starting processing for region: Mediterranean Coast
+2024-12-20 10:59:03,244 - collectors.osm_collector - INFO - Starting collection for region: Mediterranean Coast
+2024-12-20 10:59:03,244 - collectors.osm_collector - INFO - Region Mediterranean Coast too large (630.00 sq deg), splitting...
+2024-12-20 10:59:06,801 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:12,244 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:17,621 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:23,067 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-3: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:28,475 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-4: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:33,888 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-5: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:39,299 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-6: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 10:59:45,021 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-7: Collected 0 valid beaches, Skipped 8 invalid entries
+2024-12-20 10:59:51,345 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-8: Collected 1 valid beaches, Skipped 2 invalid entries
+2024-12-20 10:59:53,351 - processors.data_cleaner - ERROR - Error cleaning beach data: BeachData.__init__() missing 1 required positional argument: 'image_url'
+2024-12-20 10:59:53,351 - __main__ - ERROR - Error processing beach osm_922300656: BeachData.__init__() missing 1 required positional argument: 'image_url'
+2024-12-20 10:59:57,521 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-9: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:00:04,236 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-10: Collected 0 valid beaches, Skipped 88 invalid entries
+2024-12-20 11:00:09,883 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-11: Collected 0 valid beaches, Skipped 7 invalid entries
+2024-12-20 11:00:15,512 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-12: Collected 0 valid beaches, Skipped 9 invalid entries
+2024-12-20 11:00:20,914 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:00:26,326 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:00:31,725 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:06:59,365 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-20 11:06:59,365 - __main__ - INFO - Starting full update for 21 regions
+2024-12-20 11:06:59,365 - __main__ - INFO - Processing region 1/21
+2024-12-20 11:06:59,365 - __main__ - INFO - Starting processing for region: Mediterranean Coast
+2024-12-20 11:06:59,365 - collectors.osm_collector - INFO - Starting collection for region: Mediterranean Coast
+2024-12-20 11:06:59,365 - collectors.osm_collector - INFO - Region Mediterranean Coast too large (630.00 sq deg), splitting...
+2024-12-20 11:07:02,771 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:08,208 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:13,588 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:18,992 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-3: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:24,378 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-4: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:29,776 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-5: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:35,194 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-6: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:07:40,908 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-7: Collected 0 valid beaches, Skipped 8 invalid entries
+2024-12-20 11:07:46,466 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-8: Collected 1 valid beaches, Skipped 2 invalid entries
+2024-12-20 11:07:50,708 - database.firebase_manager - INFO - Uploaded final batch of 1 coastal locations
+2024-12-20 11:07:51,212 - __main__ - INFO - Uploaded batch of 1 beaches from sub-region
+2024-12-20 11:07:54,598 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-9: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:00,486 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-10: Collected 0 valid beaches, Skipped 88 invalid entries
+2024-12-20 11:08:06,160 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-11: Collected 0 valid beaches, Skipped 7 invalid entries
+2024-12-20 11:08:11,741 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-12: Collected 0 valid beaches, Skipped 9 invalid entries
+2024-12-20 11:08:17,136 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:22,527 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:27,914 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:33,826 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-3: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:39,238 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-4: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:44,643 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-5: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:08:50,355 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-6: Collected 3 valid beaches, Skipped 6 invalid entries
+2024-12-20 11:08:54,311 - database.firebase_manager - INFO - Uploaded final batch of 3 coastal locations
+2024-12-20 11:08:54,803 - __main__ - INFO - Uploaded batch of 3 beaches from sub-region
+2024-12-20 11:08:58,285 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-7: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:09:04,028 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-8: Collected 3 valid beaches, Skipped 12 invalid entries
+2024-12-20 11:09:06,587 - database.firebase_manager - INFO - Uploaded final batch of 3 coastal locations
+2024-12-20 11:09:07,869 - __main__ - INFO - Uploaded batch of 3 beaches from sub-region
+2024-12-20 11:09:11,919 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-9: Collected 6 valid beaches, Skipped 50 invalid entries
+2024-12-20 11:09:14,373 - database.firebase_manager - INFO - Uploaded final batch of 6 coastal locations
+2024-12-20 11:09:15,797 - __main__ - INFO - Uploaded batch of 6 beaches from sub-region
+2024-12-20 11:09:19,544 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-10: Collected 0 valid beaches, Skipped 41 invalid entries
+2024-12-20 11:09:25,469 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-11: Collected 16 valid beaches, Skipped 16 invalid entries
+2024-12-20 11:09:27,985 - database.firebase_manager - INFO - Uploaded final batch of 16 coastal locations
+2024-12-20 11:09:29,312 - __main__ - INFO - Uploaded batch of 16 beaches from sub-region
+2024-12-20 11:09:33,884 - collectors.osm_collector - INFO - Region Mediterranean Coast-1-12: Collected 48 valid beaches, Skipped 54 invalid entries
+2024-12-20 11:09:36,689 - database.firebase_manager - INFO - Uploaded final batch of 48 coastal locations
+2024-12-20 11:09:37,814 - __main__ - INFO - Uploaded batch of 48 beaches from sub-region
+2024-12-20 11:09:41,293 - collectors.osm_collector - INFO - Region Mediterranean Coast-2-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:09:46,712 - collectors.osm_collector - INFO - Region Mediterranean Coast-2-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:17,015 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-20 11:18:17,015 - __main__ - INFO - Starting full update for 21 regions
+2024-12-20 11:18:17,015 - __main__ - INFO - Processing region 1/21
+2024-12-20 11:18:17,015 - __main__ - INFO - Starting processing for region: Mediterranean Coast
+2024-12-20 11:18:17,015 - collectors.osm_collector - INFO - Starting collection for region: Mediterranean Coast
+2024-12-20 11:18:17,015 - collectors.osm_collector - INFO - Region Mediterranean Coast too large (630.00 sq deg), splitting...
+2024-12-20 11:18:19,468 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:26,894 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:34,288 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:41,701 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-3: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:49,084 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-4: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:18:56,545 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-5: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:03,959 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-6: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:11,346 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-7: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:18,729 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-8: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:26,199 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-9: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:33,604 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-10: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:41,019 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-11: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:48,431 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-12: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:19:56,040 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-13: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:20:03,469 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-14: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:20:16,242 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-15: Collected 3 valid beaches, Skipped 1 invalid entries
+2024-12-20 11:20:28,633 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-16: Collected 3 valid beaches, Skipped 20 invalid entries
+2024-12-20 11:20:51,522 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-17: Collected 11 valid beaches, Skipped 28 invalid entries
+2024-12-20 11:21:14,303 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-18: Collected 10 valid beaches, Skipped 9 invalid entries
+2024-12-20 11:21:24,508 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-19: Collected 2 valid beaches, Skipped 6 invalid entries
+2024-12-20 11:21:32,078 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-20: Collected 0 valid beaches, Skipped 3 invalid entries
+2024-12-20 11:22:54,479 - database.firebase_manager - INFO - Firestore connection initialized successfully
+2024-12-20 11:22:54,479 - __main__ - INFO - Starting full update for 21 regions
+2024-12-20 11:22:54,479 - __main__ - INFO - Processing region 1/21
+2024-12-20 11:22:54,479 - __main__ - INFO - Starting processing for region: Mediterranean Coast
+2024-12-20 11:22:54,479 - collectors.osm_collector - INFO - Starting collection for region: Mediterranean Coast
+2024-12-20 11:22:54,479 - collectors.osm_collector - INFO - Region Mediterranean Coast too large (630.00 sq deg), splitting...
+2024-12-20 11:22:56,912 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-0: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:04,368 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-1: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:13,003 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-2: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:20,393 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-3: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:27,816 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-4: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:35,220 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-5: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:42,622 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-6: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:50,029 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-7: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:23:57,458 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-8: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:04,888 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-9: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:12,323 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-10: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:19,735 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-11: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:27,128 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-12: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:34,519 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-13: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:41,922 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-14: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:24:54,884 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-15: Collected 3 valid beaches, Skipped 1 invalid entries
+2024-12-20 11:24:59,149 - database.firebase_manager - INFO - Uploaded final batch of 3 locations
+2024-12-20 11:24:59,618 - __main__ - INFO - Uploaded batch of 3 beaches from sub-region
+2024-12-20 11:25:09,964 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-16: Collected 3 valid beaches, Skipped 20 invalid entries
+2024-12-20 11:25:12,415 - database.firebase_manager - INFO - Uploaded final batch of 3 locations
+2024-12-20 11:25:13,892 - __main__ - INFO - Uploaded batch of 3 beaches from sub-region
+2024-12-20 11:25:34,967 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-17: Collected 11 valid beaches, Skipped 28 invalid entries
+2024-12-20 11:25:37,548 - database.firebase_manager - INFO - Uploaded final batch of 11 locations
+2024-12-20 11:25:38,811 - __main__ - INFO - Uploaded batch of 11 beaches from sub-region
+2024-12-20 11:25:58,737 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-18: Collected 10 valid beaches, Skipped 9 invalid entries
+2024-12-20 11:26:01,304 - database.firebase_manager - INFO - Uploaded final batch of 10 locations
+2024-12-20 11:26:02,584 - __main__ - INFO - Uploaded batch of 10 beaches from sub-region
+2024-12-20 11:26:10,807 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-19: Collected 2 valid beaches, Skipped 6 invalid entries
+2024-12-20 11:26:13,301 - database.firebase_manager - INFO - Uploaded final batch of 2 locations
+2024-12-20 11:26:14,655 - __main__ - INFO - Uploaded batch of 2 beaches from sub-region
+2024-12-20 11:26:20,352 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-20: Collected 0 valid beaches, Skipped 3 invalid entries
+2024-12-20 11:26:27,909 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-21: Collected 0 valid beaches, Skipped 3 invalid entries
+2024-12-20 11:26:41,831 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-22: Collected 4 valid beaches, Skipped 11 invalid entries
+2024-12-20 11:26:44,283 - database.firebase_manager - INFO - Uploaded final batch of 4 locations
+2024-12-20 11:26:45,749 - __main__ - INFO - Uploaded batch of 4 beaches from sub-region
+2024-12-20 11:26:56,168 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-23: Collected 3 valid beaches, Skipped 15 invalid entries
+2024-12-20 11:26:58,608 - database.firebase_manager - INFO - Uploaded final batch of 3 locations
+2024-12-20 11:27:00,084 - __main__ - INFO - Uploaded batch of 3 beaches from sub-region
+2024-12-20 11:27:14,078 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-24: Collected 5 valid beaches, Skipped 11 invalid entries
+2024-12-20 11:27:16,550 - database.firebase_manager - INFO - Uploaded final batch of 5 locations
+2024-12-20 11:27:18,005 - __main__ - INFO - Uploaded batch of 5 beaches from sub-region
+2024-12-20 11:27:23,399 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-25: Collected 0 valid beaches, Skipped 1 invalid entries
+2024-12-20 11:27:39,535 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-26: Collected 6 valid beaches, Skipped 10 invalid entries
+2024-12-20 11:27:42,000 - database.firebase_manager - INFO - Uploaded final batch of 6 locations
+2024-12-20 11:27:43,369 - __main__ - INFO - Uploaded batch of 6 beaches from sub-region
+2024-12-20 11:27:49,269 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-27: Collected 0 valid beaches, Skipped 31 invalid entries
+2024-12-20 11:27:56,827 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-28: Collected 0 valid beaches, Skipped 10 invalid entries
+2024-12-20 11:28:04,579 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-29: Collected 0 valid beaches, Skipped 52 invalid entries
+2024-12-20 11:28:12,454 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-30: Collected 0 valid beaches, Skipped 75 invalid entries
+2024-12-20 11:28:50,201 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-31: Collected 16 valid beaches, Skipped 21 invalid entries
+2024-12-20 11:28:54,276 - database.firebase_manager - INFO - Uploaded final batch of 16 locations
+2024-12-20 11:28:54,692 - __main__ - INFO - Uploaded batch of 16 beaches from sub-region
+2024-12-20 11:29:00,224 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-32: Collected 0 valid beaches, Skipped 0 invalid entries
+2024-12-20 11:29:07,725 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-33: Collected 0 valid beaches, Skipped 2 invalid entries
+2024-12-20 11:29:15,118 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-34: Collected 0 valid beaches, Skipped 5 invalid entries
+2024-12-20 11:30:29,005 - collectors.osm_collector - INFO - Region Mediterranean Coast-0-35: Collected 35 valid beaches, Skipped 82 invalid entries
+2024-12-20 11:30:33,206 - database.firebase_manager - INFO - Uploaded final batch of 35 locations
+2024-12-20 11:30:33,637 - __main__ - INFO - Uploaded batch of 35 beaches from sub-region

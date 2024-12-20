@@ -1,3 +1,3 @@
 .venv
 config/firebase_cred.json
-__pycache__/
+*__pycache__/*

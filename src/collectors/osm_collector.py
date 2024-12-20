@@ -1,5 +1,5 @@
 # src/collectors/osm_collector.py
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Union, Generator
 from datetime import datetime
 import logging
 import time
@@ -116,10 +116,9 @@ class OSMCollector(BaseCollector):
             
         return self._collect_split_region(region)
 
-    def _collect_split_region(self, region: Dict[str, float]) -> List[BeachData]:
+    def _collect_split_region(self, region: Dict[str, float]) -> Generator[List[BeachData], None, None]:
         """Split region into smaller parts and collect from each"""
         splits = self._calculate_optimal_splits(region)
-        all_beaches = []
         
         for subregion in splits:
             try:
@@ -127,7 +126,7 @@ class OSMCollector(BaseCollector):
                 beaches = self._collect_with_retry(subregion)
                 if beaches:
                     # Return beaches from this sub-region immediately
-                    yield beaches  # Changed to yield instead of extend
+                    yield beaches  # Changed back to yield instead of extend
                 time.sleep(self.split_delay)
                 
             except Exception as e:
@@ -137,17 +136,14 @@ class OSMCollector(BaseCollector):
     def _calculate_optimal_splits(self, region: Dict[str, float]) -> List[Dict[str, float]]:
         """Calculate optimal way to split region based on area"""
         area = self._calculate_area(region)
-        splits_needed = ceil(area / self.max_area)
-        
-        if splits_needed <= 1:
-            return [region]
-            
+        splits_needed = ceil(sqrt(area / self.max_area))
         splits = []
+        
         lat_range = region['north'] - region['south']
         lon_range = region['east'] - region['west']
         
-        lat_splits = ceil(sqrt(splits_needed)) if lat_range > lon_range else 1
-        lon_splits = ceil(splits_needed / lat_splits)
+        lat_splits = max(1, ceil(splits_needed * lat_range / lon_range))
+        lon_splits = max(1, ceil(splits_needed * lon_range / lat_range))
         
         lat_step = lat_range / lat_splits
         lon_step = lon_range / lon_splits
@@ -234,6 +230,7 @@ class OSMCollector(BaseCollector):
                 country=tags.get("addr:country"),
                 region=tags.get("addr:state") or tags.get("addr:region"),
                 amenities=self._extract_amenities(tags),
+                image_url="",  # Added default empty string for image_url
                 last_updated=datetime.now(),
                 data_source="OpenStreetMap"
             )
@@ -271,7 +268,7 @@ class OSMCollector(BaseCollector):
             self.logger.warning(f"Validation error: {str(e)}")
             return False
 
-    def _generate_description(self, tags: Dict, beach_name: str) -> Optional[str]:
+    def _generate_description(self, tags: Dict[str, str], beach_name: str) -> Optional[str]:
         """Generate description from OSM tags"""
         parts = []
         
@@ -290,7 +287,7 @@ class OSMCollector(BaseCollector):
             
         return " ".join(parts) if parts else None
 
-    def _extract_amenities(self, tags: Dict) -> List[str]:
+    def _extract_amenities(self, tags: Dict[str, str]) -> List[str]:
         """Extract available amenities from OSM tags"""
         amenities = []
         relevant_tags = [
